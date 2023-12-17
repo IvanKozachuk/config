@@ -9,9 +9,17 @@ pool:
   vmImage: ubuntu-latest
 
 variables:
-  ARTIFACT_NAME_TWO: 'aps-csaes'
+  - group: artifacts
+  - name: ARTIFACT_NAME_TWO
+    value:'aps-csaes'
 
 steps:
+- task: VariableTransformTask@2
+  inputs:
+    value: '$($(artifact-name))'
+    variableName: 'image-tag'
+
+
 - script: echo $(ARTIFACT_NAME_TWO)
   displayName: 'Run a one-line script'
 
